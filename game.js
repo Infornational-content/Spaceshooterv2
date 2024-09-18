@@ -623,11 +623,9 @@ function drawPlayerDamageIndicators() {
 
 let dollars = 0; // Current amount of dollars
 const maxDollars = 1000; // Maximum capacity
-// Load high score from local storage
-// Load high score from local storage
 // Load high score from local storage or set to 6000 for testing
-const highScoreKey = "highScore";
-let highScore = parseInt(localStorage.getItem(highScoreKey), 10) || 6000; // Default to 6000 for testing
+//const highScoreKey = "highScore";
+//let highScore = parseInt(localStorage.getItem(highScoreKey), 10) || 6000; // Default to 6000 for testing
 
 function drawScoreAndCoins() {
   const marginTop = 60;
@@ -656,7 +654,7 @@ function drawScoreAndCoins() {
   if (displayScore > displayHighScore) {
     highScore = displayScore;
     // Save the new high score to local storage
-    localStorage.setItem(highScoreKey, highScore);
+    // localStorage.setItem(highScoreKey, highScore);
   }
 
   // Draw the high score
