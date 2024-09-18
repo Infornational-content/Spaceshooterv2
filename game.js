@@ -624,8 +624,13 @@ function drawPlayerDamageIndicators() {
 let dollars = 0; // Current amount of dollars
 const maxDollars = 1000; // Maximum capacity
 // Load high score from local storage or set to 6000 for testing
-//const highScoreKey = "highScore";
-//let highScore = parseInt(localStorage.getItem(highScoreKey), 10) || 6000; // Default to 6000 for testing
+const highScoreKey = "highScore";
+
+// Safely get the high score from localStorage, defaulting to 6000 for testing
+let highScore = parseInt(localStorage.getItem(highScoreKey), 10);
+if (isNaN(highScore)) {
+  highScore = 6000; // Default value if no high score exists
+}
 
 function drawScoreAndCoins() {
   const marginTop = 60;
@@ -653,18 +658,23 @@ function drawScoreAndCoins() {
   // Check if the current score exceeds the high score
   if (displayScore > displayHighScore) {
     highScore = displayScore;
-    // Save the new high score to local storage
-    // localStorage.setItem(highScoreKey, highScore);
+
+    try {
+      // Save the new high score to local storage only if it changed
+      localStorage.setItem(highScoreKey, highScore);
+    } catch (e) {
+      console.error("Failed to save high score to local storage", e);
+    }
   }
 
   // Draw the high score
   ctx.fillText(`High Score: ${displayHighScore}`, 10, marginTop + 60);
 
   // Draw the dollars with max capacity (if needed)
-  //ctx.fillText(
-  //  `Dollars: ${Math.min(dollars, maxDollars)} / ${maxDollars}`,
-  // 10,
-  // marginTop + 90
+  // ctx.fillText(
+  //   `Dollars: ${Math.min(dollars, maxDollars)} / ${maxDollars}`,
+  //   10,
+  //   marginTop + 90
   // );
 
   // Remove shadow for other drawings
